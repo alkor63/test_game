@@ -12,25 +12,23 @@ public abstract class Entitys {
             checkRange(1, 30, attack);
             this.attack = attack;
         } catch (OutsideRangeException e) {
-            System.out.println("attack = " + attack + e.getMessage());
-//            throw new OutsideRangeException();
+            throw new IllegalArgumentException("attack = " + attack + e.getMessage());
         }
         try {
-            checkRange(1, 30, attack);
+            checkRange(1, 30, protection);
             this.protection = protection;
         } catch (OutsideRangeException e) {
-            System.out.println("protection = " + protection + e.getMessage());
-            //           throw new OutsideRangeException();
+           throw new IllegalArgumentException("protection = " + protection + e.getMessage());
         }
-        if (power <= 0) {
-            power = 1;
-            System.out.println("Это чахлик долго не проживёт!");
-        }
-        this.power = power;
+
+        if (power > 0) {
         this.maxPower = power;
+            this.power = power;}
+        else throw new IllegalArgumentException("*** Здоровье = "+power+" недопустимо! ***");
+
         if (damage <= 0) {
+            System.err.println("*** Максимальный ущерб = "+damage+" - этот добряк никого не победит! ***");
             damage = 1;
-            System.out.println("Это добряк никого не победит!");
         }
         this.damage = damage;
     }

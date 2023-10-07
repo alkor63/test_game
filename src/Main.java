@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Gamer hero = new Gamer(30,20,100,20);       // создаём Игрока
-        Monster zlodey = new Monster(30,20,80,15);  // создаём Монстра
+        Gamer hero = new Gamer(30,20,100,15);       // создаём Игрока
+        Monster zlodey = new Monster(30,20,80,18);  // создаём Монстра
         System.out.println("Игру начинают Герой и Злодей:");
         System.out.println("Герой: " + hero);
         System.out.println("Злодей: " + zlodey);
@@ -14,7 +14,7 @@ public class Main {
         while (hero.getPower() > 0 && zlodey.getPower() > 0)
         {
             if (GameService.attackResult(hero,zlodey)){
-                if (zlodey.getPower() < 0) {zlodey.setPower(0); break;}
+                if (zlodey.getPower() <= 0) {zlodey.setPower(0); break;}
                 System.out.println("атака Героя         "+ hero.getPower()+"          "+zlodey.getPower());
                 if(zlodey.getPower() < zlodey.getMaxPower()/2 && numCureZlodey < 4){
                 numCureZlodey ++;
@@ -23,8 +23,8 @@ public class Main {
             }
             }
             if (GameService.attackResult(zlodey, hero)) {
-                System.out.println("атака Злодея        " + hero.getPower() + "          " + zlodey.getPower());
                 if (hero.getPower() < 0) hero.setPower(0);
+                System.out.println("атака Злодея        " + hero.getPower() + "          " + zlodey.getPower());
                 if (hero.getPower() < hero.getMaxPower() / 2 && numCureHero < 4) {
                     numCureHero++;
                     GameService.hospital(hero);
