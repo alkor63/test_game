@@ -5,7 +5,7 @@ public abstract class Entitys {
     private int protection;     // "защита" - диапазон: 1 - 30
     private int power;          // "здоровье/сила" - диапазон: 1 - N (N задаём при создании)
     private int damage;         // "урон" - ущерб, который можно нанести противнику - диапазон: 1 - М (М задаём при создании)
-    private int maxPower;       // максимальная величина здоровья (задана при создании персонажа)
+    private final int maxPower;       // максимальная величина здоровья (задана при создании персонажа)
 
     public Entitys(int attack, int protection, int power, int damage) {
         try {
@@ -18,16 +18,16 @@ public abstract class Entitys {
             checkRange(1, 30, protection);
             this.protection = protection;
         } catch (OutsideRangeException e) {
-           throw new IllegalArgumentException("protection = " + protection + e.getMessage());
+            throw new IllegalArgumentException("protection = " + protection + e.getMessage());
         }
 
         if (power > 0) {
-        this.maxPower = power;
-            this.power = power;}
-        else throw new IllegalArgumentException("*** Здоровье = "+power+" недопустимо! ***");
+            this.maxPower = power;
+            this.power = power;
+        } else throw new IllegalArgumentException("*** Здоровье = " + power + " недопустимо! ***");
 
         if (damage <= 0) {
-            System.err.println("*** Максимальный ущерб = "+damage+" - этот добряк никого не победит! ***");
+            System.err.println("*** Максимальный ущерб = " + damage + " - этот добряк никого не победит! ***");
             damage = 1;
         }
         this.damage = damage;
